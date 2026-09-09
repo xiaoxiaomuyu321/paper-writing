@@ -67,15 +67,30 @@ function Test-GitAvailable {
     try { (Get-Command git -ErrorAction Stop) -ne $null } catch { $false }
 }
 
+# Git writes progress/warnings to stderr; under $ErrorActionPreference='Stop'
+# (Windows PowerShell 5.1) that would terminate the script, so wrap it.
+function Invoke-Git {
+    param([string[]]$GitArgs)
+    $Prev = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    & git @GitArgs 2>&1 | Out-Null
+    $Rc = $LASTEXITCODE
+    $ErrorActionPreference = $Prev
+    return $Rc
+}
+
 function Install-Fresh {
     param([string]$HostLabel, [string]$Dest)
     New-Item -ItemType Directory -Path (Split-Path $Dest -Parent) -Force | Out-Null
     $Done = $false
     if (Test-GitAvailable) {
         Write-Host "[$HostLabel] git clone -> $Dest"
-        & git clone -q --depth 1 -b $Branch $(if ($LocalClone) { $LocalClone } else { $CloneUrl }) $Dest 2>$null
-        if ($LASTEXITCODE -eq 0) {
-            if ($LocalClone) { & git -C $Dest remote set-url origin $CloneUrl 2>$null }
+        $CloneArgs = @('clone', '-q', '-b', $Branch)
+        if (-not $LocalClone) { $CloneArgs += '--depth 1' }
+        $CloneArgs += $(if ($LocalClone) { $LocalClone } else { $CloneUrl })
+        $CloneArgs += $Dest
+        if ((Invoke-Git $CloneArgs) -eq 0) {
+            if ($LocalClone) { Invoke-Git @('-C', $Dest, 'remote', 'set-url', 'origin', $CloneUrl) | Out-Null }
             $Done = $true
         } else {
             Write-Warning "[$HostLabel] git clone failed; falling back to tarball."
@@ -107,10 +122,8 @@ function Install-One {
     if (Test-Path $Dest) {
         if (Test-Path (Join-Path $Dest '.git')) {
             Write-Host "[$HostLabel] updating existing git install at $Dest"
-            & git -C $Dest fetch -q origin $Branch 2>$null
-            if ($LASTEXITCODE -eq 0) {
-                & git -C $Dest pull -q --ff-only 2>$null
-                if ($LASTEXITCODE -eq 0) {
+            if ((Invoke-Git @('-C', $Dest, 'fetch', '-q', 'origin', $Branch)) -eq 0) {
+                if ((Invoke-Git @('-C', $Dest, 'pull', '-q', '--ff-only')) -eq 0) {
                     Write-Host "[$HostLabel] updated."
                 } else {
                     Write-Warning "[$HostLabel] fast-forward failed (local changes?); keeping $Dest as is."

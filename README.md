@@ -53,6 +53,8 @@ curl -fsSL https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/
 ```
 
 - 重复执行 = 更新：git 安装走 `git pull --ff-only`；普通目录安装自动备份（`<目录>.bak-<时间戳>`）后替换。
+- 本地 clone 中运行 `.\install.ps1` 若被系统执行策略拦截，改用：
+  `powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1`（一行式 `irm | iex` 不受此限制）。
 - 也可以手动：`git clone https://github.com/xiaoxiaomuyu321/paper-writing <技能目录>\paper-writing`；
   Codex 里还可以直接对内置 `skill-installer` 说 “install skill from github xiaoxiaomuyu321/paper-writing”。
 - 旧方式仍有效：把本目录整体复制到任意 Agent 技能目录（如 `~/.claude/skills/`）。
