@@ -20,10 +20,43 @@
 
 ## 快速开始
 
-### 1. 安装为 Agent 技能
+### 1. 直接安装（Codex / DeepSeek Harness）
 
-把本目录整体复制到 Agent 技能目录（如 `~/.claude/skills/`、`~/.agents/skills/`）。
-入口为 `SKILL.md`；轴路由由 `manifest.yaml` 声明。
+本仓库即标准 Agent 技能包（根目录 `SKILL.md`），支持两种宿主，一行安装、无需 clone：
+
+| 宿主 | 安装位置 | 生效时机 |
+|---|---|---|
+| OpenAI Codex | `%USERPROFILE%\.codex\skills\paper-writing`（可用 `$env:CODEX_HOME` 改） | 下一轮对话 |
+| DeepSeek Harness (DSH) | `%USERPROFILE%\.agents\skills\paper-writing` | 技能目录刷新后（新会话自动可见） |
+
+Windows (PowerShell)：
+
+```powershell
+# 安装到两个宿主
+irm https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.ps1 | iex
+
+# 只装 Codex
+$env:SKILL_INSTALL_TARGET = 'codex'
+irm https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.ps1 | iex
+
+# 卸载（两个宿主；设 $env:SKILL_INSTALL_TARGET='dsh' 只卸一个）
+$env:SKILL_UNINSTALL = '1'
+irm https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.ps1 | iex
+```
+
+macOS / Linux：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.sh | bash              # 两个宿主
+curl -fsSL https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.sh | bash -s -- codex  # 只装 Codex
+curl -fsSL https://raw.githubusercontent.com/xiaoxiaomuyu321/paper-writing/main/install.sh | bash -s -- all --uninstall
+```
+
+- 重复执行 = 更新：git 安装走 `git pull --ff-only`；普通目录安装自动备份（`<目录>.bak-<时间戳>`）后替换。
+- 也可以手动：`git clone https://github.com/xiaoxiaomuyu321/paper-writing <技能目录>\paper-writing`；
+  Codex 里还可以直接对内置 `skill-installer` 说 “install skill from github xiaoxiaomuyu321/paper-writing”。
+- 旧方式仍有效：把本目录整体复制到任意 Agent 技能目录（如 `~/.claude/skills/`）。
+  入口为 `SKILL.md`；轴路由由 `manifest.yaml` 声明。
 
 ### 2. 查询书籍知识库
 
