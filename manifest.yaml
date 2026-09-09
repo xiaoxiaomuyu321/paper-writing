@@ -1,0 +1,183 @@
+name: paper-writing-fusion
+version: 1.0.0
+description: >
+  Declarative manifest for the fused static/dynamic layer. SKILL.md uses this
+  to decide which fragments to load for a drafting, restructuring, or
+  initial-submission request. Extends the nature-writing manifest (v1.5.0,
+  snapshot 2026-07-24) with the thesis task, the bundled book knowledge base
+  consultation entries, and the distilled book-craft layer (references/craft/),
+  which is the authority on writing technique for every journal.
+
+always_load:
+  # Shared layer — snapshot of the nature-shared package, now local
+  - shared/core/reader-workflow.md
+  - shared/core/paper-type-taxonomy.md
+  - shared/core/ethics.md
+  - shared/core/terminology-ledger.md
+  # Skill-local core
+  - static/core/stance.md
+  - static/core/workflow.md
+  - static/core/output-format.md
+  # Book-craft core — distilled from both books (Gastel & Day 8e; Turabian 7e);
+  # the first-stop authority on writing technique, per SKILL.md craft priority
+  - references/craft/craft-core.md
+
+axes:
+  task:
+    detect: |
+      Use submission-package when the user requests first-submission or
+      pre-submission materials such as an initial cover letter, title page,
+      highlights, author contributions, availability/declaration statements,
+      reviewer suggestions, or a complete submission checklist. Use thesis
+      when the deliverable is a thesis, dissertation, or long student
+      research report (structure, front/back matter, format, submission to an
+      institution). Use manuscript for manuscript sections and argument
+      development. Revision correspondence after an editor decision belongs
+      to nature-response (or references/submission-and-peer-review.md for
+      non-Nature venues), not to this manifest's task axis.
+    values:
+      manuscript:          static/fragments/task/manuscript.md
+      submission-package: static/fragments/task/submission-package.md
+      thesis:               references/thesis-and-dissertation.md
+    default: manuscript
+    multi: false
+
+  paper_type:
+    detect: |
+      Decide what kind of paper or section is being drafted. Default to research.
+      Use the user's stated framing first; fall back to inference from their
+      material. Map writing's older taxonomy (mechanism/method/resource/device/
+      model/clinical/materials/computational/interdisciplinary) onto these five.
+    values:
+      research:       static/fragments/paper_type/research.md
+      methods:        static/fragments/paper_type/methods.md
+      hypothesis:     static/fragments/paper_type/hypothesis.md
+      algorithmic:    static/fragments/paper_type/algorithmic.md
+      review:         static/fragments/paper_type/review.md
+    default: research
+    multi: false
+
+  section:
+    detect: |
+      Identify which section(s) the user wants drafted or rebuilt. The user
+      may name one or several. Ask before loading when ambiguous and load
+      cost matters. Title and abstract often need to be drafted last but
+      planned early.
+    values:
+      abstract:       static/fragments/section/abstract.md
+      intro:          static/fragments/section/intro.md
+      related-work:   static/fragments/section/related-work.md
+      method:         static/fragments/section/method.md
+      experiments:    static/fragments/section/experiments.md
+      discussion:     static/fragments/section/discussion.md
+      conclusion:     static/fragments/section/conclusion.md
+      title:          static/fragments/section/title.md
+    multi: true
+
+  language:
+    detect: |
+      Detect the source language of the user's notes. Use zh-to-en when the
+      input is Chinese, mixed Chinese-English, or organized as Chinese lab
+      notes. Otherwise use en.
+    values:
+      en:             static/fragments/language/en.md
+      zh-to-en:       static/fragments/language/zh-to-en.md
+    default: en
+    multi: false
+
+  journal:
+    detect: |
+      Use nature only for the flagship journal Nature. Use nat-comms for Nature
+      Communications. Use nat-mach-intell when the user names Nature Machine
+      Intelligence or NMI. If the user says "Nature-family" generically or
+      names a different Nature Portfolio subjournal, use nature-family and
+      check that journal's current instructions before applying exact numbers.
+      Otherwise use generic — for generic journals the book knowledge base and
+      the book-craft references below carry the section craft and
+      submission guidance.
+    values:
+      nature:         static/fragments/journal/nature.md
+      nature-family:  static/fragments/journal/nature-family.md
+      nat-comms:      static/fragments/journal/nat-comms.md
+      nat-mach-intell: static/fragments/journal/nat-mach-intell.md
+      generic:        static/fragments/journal/generic.md
+    default: generic
+    multi: false
+
+references:
+  on_demand:
+    # ---- Nature-style drafting layer (from nature-writing, snapshot 2026-07-24) ----
+    - condition: task is manuscript and the user is drafting, restructuring, or compressing Results or full main text; deciding what belongs in main text versus captions or SI; preventing revision accretion; reducing statistical or claim repetition; or building the shortest sufficient evidence chain
+      path: shared/core/main-text-discipline.md
+    - condition: target is flagship Nature, Nature Communications, Nature Machine Intelligence, or another Nature Portfolio title and the user is drafting or restructuring Results, Discussion, or their boundary; testing claim escalation; deciding whether local interpretation or robustness advances the claim; or separating necessary recap from redundant re-demonstration
+      path: shared/core/nature-results-discussion.md
+    - condition: drafting, restructuring, or auditing any scientific Discussion; choosing the opening anchor and reverse-funnel movement; positioning findings against prior work; calibrating modal verbs or hedging; writing claim-specific limitations; or deriving future work from a named uncertainty
+      path: shared/core/discussion-argument-language.md
+    - condition: target is flagship Nature, Nature Communications, Nature Machine Intelligence, or another Nature Portfolio title and the user is drafting or restructuring the Introduction or whole-manuscript narrative; building a fast problem funnel, exact knowledge gap, literature tension, question-first novelty, compact study roadmap, or Introduction–Results alignment
+      path: shared/core/nature-introduction.md
+    - condition: target is flagship Nature, Nature Communications, Nature Machine Intelligence, or another Nature Portfolio title and the user is drafting or restructuring the abstract; compressing the manuscript into a discovery-centred evidence chain; selecting one main claim, one or two decisive supports, optional core numbers, or a bounded field-level payoff
+      path: shared/core/nature-abstract.md
+    - condition: needs section-level structure, argument order, or published-article patterns
+      path: references/article-architecture.md
+    - condition: genre-aware 2025 Nat Commun empirical structure, quantified connector/diction preferences, or research/review/perspective/comment/benchmark differences
+      path: references/nat-comms-2025-corpus.md
+    - condition: drafting/revising abstract; especially challenge-contribution forms
+      path: references/abstract.md
+    - condition: drafting/revising a Nature-family broad-audience summary paragraph or introduction opening
+      path: references/nature-summary-paragraph.md
+    - condition: drafting/revising introduction, task framing, technical challenge, contribution framing
+      path: references/introduction.md
+    - condition: rebuilding related work as topic synthesis
+      path: references/related-work.md
+    - condition: writing method sections, pipeline modules, module motivation, technical advantages
+      path: references/method.md
+    - condition: planning/writing experiments around baselines, ablations, metrics
+      path: references/experiments.md
+    - condition: writing a bounded conclusion with contribution, evidence, impact, limitation
+      path: references/conclusion.md
+    - condition: user asks whether a paragraph flows; use reverse outlining
+      path: references/paragraph-flow.md
+    - condition: final manuscript self-review, rejection-risk audit, claim-evidence alignment
+      path: references/paper-review.md
+    - condition: initial cover letter, title page, highlights, declarations, suggested reviewers, complete first-submission package, or submission-readiness audit for a Nature-family venue
+      path: references/submission-package.md
+    - condition: flagship Nature Article formatting, initial-submission package, submission-readiness audit, stage classification, or exact title/text/display/reference limits
+      path: shared/journal-formats/nature.md
+    - condition: Nature Machine Intelligence article-type selection, exact word/display limits, initial-submission package, stage classification, data/code duties, or production preflight
+      path: shared/journal-formats/nature-machine-intelligence.md
+    - condition: human or animal ethics, clinical research, reporting summaries, image integrity, structures, chemistry, taxonomy, geological, archaeological, or palaeontological compliance is involved
+      path: shared/core/research-compliance.md
+    - condition: deeper Chinese-author repair patterns beyond the language fragment
+      path: references/chinese-author-workflow.md
+    - condition: user wants concrete abstract/introduction/method examples
+      path: references/examples/index.md
+    # ---- Distilled book-craft layer (condensed from the two books; authority on writing technique) ----
+    - condition: drafting, restructuring, or revising any manuscript section (abstract, title, introduction, related work, methods, results, discussion, conclusion) or planning section structure — the book's section techniques are the default how-to
+      path: references/craft/section-craft.md
+    - condition: sentence, paragraph, style, clarity, concision, tense, voice, hedging, terminology, word choice, revision passes, proofreading, or Chinese-to-English scientific prose work
+      path: references/craft/language-craft.md
+    - condition: planning the research argument — posing or sharpening the research question, claims vs topics, working hypotheses, thesis statements, evaluating sources, note-taking, outlining, organizing the argument, counterargument, or structuring a thesis/dissertation's long argument
+      path: references/craft/argument-craft.md
+    - condition: integrating sources into prose (quoting vs paraphrasing, signal phrases, block quotes), paraphrasing discipline, plagiarism avoidance, or Chicago citation mechanics in prose (narrative vs parenthetical, notes-bibliography vs author-date, bibliography writing)
+      path: references/craft/citation-prose.md
+    # ---- Book knowledge base (deep source behind the craft layer) ----
+    - condition: 'the distilled craft layer does not cover the point, the user asks "what does the book say", book-level craft or publication-process guidance is needed (journal selection, cover letters, reviewer responses, abstract types, IMRaD section contracts, data/figures/tables, ethics statements, reporting checklists), or verbatim book wording with provenance is wanted — query the bundled knowledge base with scripts/paper_kb.py'
+      path: references/knowledge-base.md
+    - condition: end-to-end workflow, paper brief, claim-evidence table, revision passes, or final verification record
+      path: references/workflow.md
+    - condition: section contracts for a generic (non-Nature) journal article — abstracts, introduction, methods, results, discussion, tables/figures
+      path: references/manuscript-sections.md
+    - condition: clarity, cohesion, concision, terminology, tense, voice, hedging, or Chinese-to-English scientific prose issues beyond the language fragment
+      path: references/scientific-english.md
+    - condition: study-design reporting checklists, authorship, conflicts of interest, human/animal ethics, AI disclosure, data/code availability, or reproducibility statements for any venue
+      path: references/reporting-and-ethics.md
+    - condition: journal selection, cover letters, submission packages, revision strategy, or reviewer-response drafting for a non-Nature journal, or post-acceptance proofs
+      path: references/submission-and-peer-review.md
+    - condition: thesis, dissertation, or long student research report — structure, front/back matter, formatting, institutional submission
+      path: references/thesis-and-dissertation.md
+    - condition: Chicago-style citation (notes-bibliography or author-date) or Chicago student writing style
+      path: references/chicago-citation.md
+    - condition: authoritative web resources for current journal policies, reporting guidelines, or freshness-sensitive requirements
+      path: references/source-registry.md
+    - condition: provenance, alignment statistics, or documented residuals of the bundled book dataset
+      path: references/book-dataset-profile.md

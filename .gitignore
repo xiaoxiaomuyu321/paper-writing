@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Editor / OS
+~$*
+*.swp
+.DS_Store
+Thumbs.db
+
+# Build scratch
+.build/
+build-report*.json
+
+# Safety net: book source files must never be committed
+*.pdf
+*.docx
