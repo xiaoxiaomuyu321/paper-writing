@@ -7,8 +7,9 @@
 **书籍工艺凝练层**（`references/craft/`）——两本书的全部写作技巧被蒸馏为按用途组织的
 技巧文档，每条技巧带书内章节 locator，可回库验证原文。**写作工艺以书为准。**
 
-> 私有用途技能：含书籍全文数据库与第三方 nature-skills 内容，请勿公开分发
-> （见仓库根目录 [LICENSE](LICENSE) 与 [THIRD-PARTY-NOTICE.md](THIRD-PARTY-NOTICE.md)）。
+> 使用说明：书籍知识库（两本写作指南的完整提取文本）及内置的 nature-skills 内容
+> 仅限个人、非商业使用；请勿再分发书籍文本或 `book-knowledge.sqlite`
+> （条款见仓库根目录 [LICENSE](LICENSE) 与 [THIRD-PARTY-NOTICE.md](THIRD-PARTY-NOTICE.md)）。
 
 ## 与两个来源技能的关系
 

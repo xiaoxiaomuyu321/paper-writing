@@ -36,10 +36,10 @@
    - PDF SHA-256: `9D1156CA4F8347F53A5F7585EBDAD2FA74FF43AB0F84921DA208B3FE41371283`
    - DOCX SHA-256: `0EE848C55752AB1A4EF7612DFAE712282E1389262AE44CFAC812BA3FEE6B6C5E`
 
-书籍版权归出版商所有。提取文本来自仓库所有人合法获得的副本，**仅限私有、非商业使用**；
-禁止公开本仓库或分发数据库/书籍文本。详见 [LICENSE](LICENSE) 第 2 条。
-如需公开版本：移除 `book-knowledge.sqlite`，改用 `scripts/build_kb.py`
-由使用者以各自合法副本构建（本仓库支持）。
+书籍版权归出版商所有。提取文本来自仓库所有人合法获得的副本，**仅限个人、非商业使用**；
+请勿再分发 `book-knowledge.sqlite`、书籍文本或其可辨认的摘录。详见 [LICENSE](LICENSE) 第 2 条。
+如需使用一个不含书籍文本的变体：删除本地克隆中的 `book-knowledge.sqlite`，
+改用 `scripts/build_kb.py` 以你自行合法获得的副本构建（本仓库支持）。
 
 原始源文件（PDF/DOCX）**有意不纳入本仓库**（见 `.gitignore`），仅保留在仓库所有人
 的本地目录用于溯源与重建；上表的 SHA-256 即可校验本地副本与构建时所用文件一致。
