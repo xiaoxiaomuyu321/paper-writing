@@ -1,4 +1,4 @@
 interface:
-  display_name: "Paper Writing Fusion"
+  display_name: "Paper Writing"
   short_description: "Book-authority craft, Nature-venue structure: fused scientific paper writing"
-  default_prompt: "Use $paper-writing-fusion to plan, draft, audit, or package a scientific manuscript (Nature-family or any journal), thesis, or dissertation. Writing technique follows the two book authorities (Gastel & Day; Turabian) via the distilled craft layer; Nature-side fragments supply venue structure, limits, and submission packages."
+  default_prompt: "Use $paper-writing to plan, draft, audit, or package a scientific manuscript (Nature-family or any journal), thesis, or dissertation. Writing technique follows the two book authorities (Gastel & Day; Turabian) via the distilled craft layer; Nature-side fragments supply venue structure, limits, and submission packages."

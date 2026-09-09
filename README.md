@@ -1,4 +1,4 @@
-# paper-writing-fusion
+# paper-writing
 
 **用于论文撰写的融合技能**：把 **Nature 风格声明驱动写作**（`nature-writing` +
 `nature-shared`，来自 [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills)）
@@ -16,7 +16,7 @@
 |---|---|---|
 | `nature-writing`（+ `nature-shared`） | 本技能 Nature 侧内容的上游 | 仅 Nature 风格起草/初始投稿 |
 | `scientific-paper-writing-publishing` | 本技能的书籍侧来源（独立仓库，独立可用） | 仅书籍库 + 通用期刊/学位论文工艺 |
-| **`paper-writing-fusion`（本技能）** | 两者融合 + 工艺凝练层 | 任意期刊论文 + Nature 系期刊 + 学位论文 |
+| **`paper-writing`（本技能）** | 两者融合 + 工艺凝练层 | 任意期刊论文 + Nature 系期刊 + 学位论文 |
 
 ## 快速开始
 
@@ -39,7 +39,7 @@ python scripts/paper_kb.py query "dissertation format" --source "A Manual for Wr
 
 ### 3. 起草论文
 
-直接对 Agent 说例如："用 paper-writing-fusion 起草一篇关于 X 的期刊论文，目标期刊 Nature"。
+直接对 Agent 说例如："用 paper-writing 起草一篇关于 X 的期刊论文，目标期刊 Nature"。
 `SKILL.md` 的路由协议会：轴检测（journal / paper_type / language / section / task）→
 加载对应 Nature 片段 → 加载书籍工艺凝练层（`craft-core` 常载，其余按条件）→
 按需查询书籍知识库验证工艺细节 → 起草 → 质检。
@@ -47,7 +47,7 @@ python scripts/paper_kb.py query "dissertation format" --source "A Manual for Wr
 ## 目录结构
 
 ```
-paper-writing-fusion/
+paper-writing/
 ├── SKILL.md                  ← 统一路由器（轴检测 → 片段加载 → 书籍工艺层 → 起草 → 质检）
 ├── manifest.yaml             ← 轴声明（nature 五轴 + thesis 任务 + 工艺层/书籍库 on_demand 条件）
 ├── LICENSE                   ← 私有用途许可（书籍文本 + nature-skills 条款）

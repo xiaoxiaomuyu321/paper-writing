@@ -1,4 +1,4 @@
-name: paper-writing-fusion
+name: paper-writing
 version: 1.0.0
 description: >
   Declarative manifest for the fused static/dynamic layer. SKILL.md uses this

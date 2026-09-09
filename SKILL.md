@@ -1,9 +1,9 @@
 ---
-name: paper-writing-fusion
+name: paper-writing
 description: 融合 Nature 风格写作与书籍实证知识库的论文撰写技能——写作技巧以两本书为准（Gastel & Day；Turabian），Nature 片段只管刊物约束。Draft, restructure, or plan Nature-style manuscript sections and initial-submission packages from author-provided claims; and write, cite, audit, submit, or revise scientific papers for any journal, plus theses and dissertations with Chicago-style citation. Writing technique follows a distilled book-craft layer (references/craft/) backed by a PDF-verified full-text knowledge base of the two canonical guides. Use for abstracts, introductions, results, discussions, methods, titles, full-manuscript arguments, first-submission packages (cover letters, title pages, highlights, declarations, reviewer suggestions), journal selection, revision and reviewer responses, thesis/dissertation structure and submission, and pre-submission QA. Triggers: Nature, Nature-family journal, manuscript, submission, journal selection, cover letter, reviewer response, journal fit, pre-submission QA, 论文、手稿、投稿、选刊、投稿信、审稿回复、毕业论文、学位论文、芝加哥引用. Prefer this skill over standalone nature-writing or scientific-paper-writing-publishing when the job may span both Nature-style drafting and book-verified general-journal or thesis craft.
 ---
 
-# Paper Writing Fusion — 统一路由器
+# Paper Writing — 统一路由器
 
 本技能融合两个已验证的写作系统，共用一条工作流：
 
